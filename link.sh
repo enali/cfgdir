@@ -2,8 +2,10 @@
 
 cfgdir=`pwd`
 
-ln -s $cfgdir/vimrc ~/.vimrc
-ln -s $cfgdir/gvimrc ~/.gvimrc
-ln -s $cfgdir/tmux.conf ~/.tmux.conf
-ln -s $cfgdir/bash_aliases ~/.bash_aliases
-ln -s $cfgdir/bash_env ~/.bash_env
+cfgfile="vimrc gvimrc tmux.conf bash_aliases bash_env"
+for cf in $cfgfile; do
+  if [ -f ~/.$cf ]; then
+    mv ~/.$cf ~/.$cf.bk
+  fi
+  ln -s $cfgdir/$cf ~/.$cf
+done
