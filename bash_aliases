@@ -17,7 +17,6 @@ alias cmount="mount | column -t"
 alias tmux='tmux -2'
 alias dirs='dirs -p -v'
 alias chrome='google-chrome'
-alias cpycm=
 # you must install conda and create py2 and py3 environments
 alias py2='source activate py2'
 alias py-='source deactivate'

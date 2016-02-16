@@ -54,6 +54,7 @@ nnoremap <leader>sw <C-W>s
 nnoremap <leader>vw <C-W>v
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
+inoremap <leader>u <esc>gUiwea
 
 "==== colorscheme
 colorscheme seoul256
@@ -262,7 +263,7 @@ nnoremap <silent> <leader>vi :VimShellInteractive<cr>
 let g:polyglot_disabled = ['python','markdown','rust']
 
 "==== ack.vim
-let g:ackprg = 'ag  --vimgrep'
+let g:ackprg = 'ag'
 
 "==== ctrlp.vim
 "c-p,直接输入字串,模糊搜索或c-r进行正则搜索,c-j/k进行选择,回车编辑或c-t/v在新tab页和垂直分割窗口编辑

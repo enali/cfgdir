@@ -31,3 +31,7 @@ elif which clang >/dev/null 2>&1; then
   export CC=$(which clang)
   export CXX=$(which clang++)
 fi
+
+#### key mapping
+
+xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
