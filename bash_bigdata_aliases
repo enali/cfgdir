@@ -1,0 +1,10 @@
+# vim:set ft=sh:
+
+alias hls='hdfs dfs -ls'
+alias hrm='hdfs dfs -rm'
+alias hmd='hdfs dfs -mkdir'
+alias hput='hdfs dfs -put'
+alias hget='hdfs dfs -get'
+alias hfmt='hdfs namenode -format'
+alias start-all='$HADOOP_HOME/sbin/start-all.sh && $SPARK_HOME/sbin/start-all.sh'
+alias stop-all='$HADOOP_HOME/sbin/stop-all.sh && $SPARK_HOME/sbin/stop-all.sh'
