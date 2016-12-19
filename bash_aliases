@@ -25,17 +25,6 @@ alias py3='source activate py3'
 # "$ emacs -daemon"
 alias e="emacsclient -t"  #terminal client
 alias ec="emacsclient -c"  #GUI client
-# hadoop
-#alias hls='hdfs dfs -ls'
-#alias hrm='hdfs dfs -rm'
-#alias hpt='hdfs dfs -put'
-#alias hgt='hdfs dfs -get'
-#alias hct='hdfs dfs -cat'
-#alias hmv='hdfs dfs -mv'
-#alias hcp='hdfs dfs -cp'
-#alias hmd='hdfs dfs -mkdir'
-#alias hstart="hdfs namenode -format && start-dfs.sh && start-yarn.sh && mr-jobhistory-daemon.sh start historyserver && hdfs dfs -mkdir /user/$USER"
-#alias hstop="mr-jobhistory-daemon.sh stop historyserver && stop-yarn.sh && stop-dfs.sh"
 # functions
 #mpg() { mvn archetype:generate -B -DarchetypeCatalog=internal -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.1 -DgroupId="$1" -DartifactId="$2" -Dversion=1.0.0;}
 mcd() { mkdir -p "$1"; cd "$1";}
