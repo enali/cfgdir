@@ -24,12 +24,8 @@ set nu rnu
 set showcmd
 "" 指定状态栏显示方式
 set laststatus=2
-"" 指定长行一次右滚10字符, 考虑到默认`wrap`, 此无必要
-" set sidescroll=10
 "" 适当折行
 set linebreak
-"" 虚拟编辑, 允许光标定位到没实际字符的位置
-"set virtualedit=all
 "" 显示折叠栏
 set foldcolumn=2
 "" 允许Ctrl-A和Ctrl-X加减字母
@@ -46,7 +42,6 @@ set history=200
 let mapleader=","
 "" 将默认的前导符映射到反向重复查找','
 nnoremap \ ,
-
 
 """" 增强插件激活 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" 允许在命令行查询Man手册
@@ -69,27 +64,14 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 "" 重新载入.vimrc的映射
 nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
 
-
-"""" 自动命令 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufNewFile,BufReadPre *.java nnoremap <leader>rs :up <bar> !javac % && java %:r<cr>
-autocmd BufNewFile,BufReadPre *.java nnoremap <leader>cs :up <bar> !javac %<cr>
-autocmd BufNewFile,BufReadPre *.scala nnoremap <leader>rs :up <bar> !scala %<cr>
-autocmd BufNewFile,BufReadPre *.scala nnoremap <leader>cs :up <bar> !scalac %<cr>
-autocmd BufNewFile,BufReadPre *.rb nnoremap <leader>rs :up <bar> !ruby %<cr>
-autocmd BufNewFile,BufReadPre *.py nnoremap <leader>rs :up <bar> !python3 %<cr>
-autocmd BufNewFile,BufReadPre *.js nnoremap <leader>rs :up <bar> !node %<cr>
-
-
 """" 自定义命令 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 非特权下保存特权文件
 command! Ws :w ! sudo tee % >/dev/null
-
 
 """" colorscheme """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme seoul256
 set background=dark
 set cursorline cursorcolumn
-
 
 """" 设置垂直制表符 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable 
@@ -104,111 +86,66 @@ set softtabstop=2
 set nofoldenable
 " set foldenable
 " 指定代码折叠的方式
-set foldmethod=syntax
+" set foldmethod=syntax
 
-
-"""" vundle """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 想使用此插件管理, 先克隆此插件到本地
-" :PluginInstall, 安装插件
-" :PluginClean, 清理插件
-" :PluginUpdate, 更新插件
-" :PluginList, 列出当前已安装插件
-" :PluginSearch, 搜索插件
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
-
-Plugin 'VundleVim/Vundle.vim'
-
+"""" vim-plug """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
 ""用ascii码画画
-Plugin 'DrawIt'
-
+Plug 'DrawIt'
 "" 提取代码的tab, 往往是类, 方法等
-Plugin 'majutsushi/tagbar'
-"" 以特定字符对齐多行, 如:, =, ,, 
-Plugin 'godlygeek/tabular'
+Plug 'majutsushi/tagbar'
 "" 以边栏的形式提供文件树
-Plugin 'scrooloose/nerdtree'
-"" 给文件添加git状态标记
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-"" 提供静态语法检查, 会影响速度
-"Plugin 'scrooloose/syntastic'
-"" 提供代码注释和去注释
-" Plugin 'scrooloose/nerdcommenter'
-"" 显示缩进对齐, 视觉辅助
-Plugin 'Yggdroot/indentLine'
-"" 提供多主题
-Plugin 'flazz/vim-colorschemes'
-"" 提供多语言的增强插件, 有些只是语法高亮
-Plugin 'sheerun/vim-polyglot'
-"" 提供状态栏增强显示
-Plugin 'bling/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 "" 提供可视化撤销树
-Plugin 'mbbill/undotree'
-"" 提供rails的增强
-Plugin 'tpope/vim-rails'
-"" 提供haml, 另一种html模板
-Plugin 'tpope/vim-haml'
-"" 方便文本分隔符的操作, 如添加, 删除, 修改等
-Plugin 'tpope/vim-surround'
-"" 增强'.'的重复能力, 默认只能重复修改
-Plugin 'tpope/vim-repeat'
-"" 使用c-a/x正确增加减少时间
-Plugin 'tpope/vim-speeddating'
-"" 提供智能结束符, 如}, end, fi等
-Plugin 'tpope/vim-endwise'
-"" 提供gc注释操作符
-Plugin 'tpope/vim-commentary'
-"" 提供各种列表遍历映射, 如]b即下一个缓冲区
-Plugin 'tpope/vim-unimpaired'
-"" 提供文件查找,缓冲区查找,历史查找等各种便捷功能, 类似ctrlp
-" Plugin 'Shougo/unite.vim'
-" Plugin 'Shougo/vimproc.vim'
-" Plugin 'Shougo/neomru.vim'
-" Plugin 'Shougo/tabpagebuffer.vim'
+Plug 'mbbill/undotree'
+"" 提供多主题
+Plug 'flazz/vim-colorschemes'
+"" 提供状态栏增强显示
+Plug 'bling/vim-airline'
+"" 显示缩进对齐, 视觉辅助
+Plug 'Yggdroot/indentLine'
 "" 全功能补全插件, 特别是对c/cpp提供语义补全
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'Valloric/ListToggle'
-"" rust语言的增强插件
-Plugin 'rust-lang/rust.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/ListToggle'
+"" 提供rails的增强
+Plug 'tpope/vim-rails'
+"" 提供haml, 另一种html模板
+Plug 'tpope/vim-haml'
+"" 方便文本分隔符的操作, 如添加, 删除, 修改等
+Plug 'tpope/vim-surround'
+"" 增强'.'的重复能力, 默认只能重复修改
+Plug 'tpope/vim-repeat'
+"" 提供智能结束符, 如}, end, fi等
+Plug 'tpope/vim-endwise'
+"" 提供gc注释操作符
+Plug 'tpope/vim-commentary'
+"" 提供各种列表遍历映射, 如]b即下一个缓冲区
+Plug 'tpope/vim-unimpaired'
+"" 使用c-a/x正确增加减少时间
+Plug 'tpope/vim-speeddating'
 "" 代码片断引擎
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 "" 用于ultisnips的多语言代码片断
-Plugin 'honza/vim-snippets'
-"" md文件的增强插件
-Plugin 'plasticboy/vim-markdown'
-"" asciidoc格式文本的增强插件
-Plugin 'asciidoc/vim-asciidoc'
-"" .dot文件的增强插件
-Plugin 'wannesm/wmgraphviz.vim'
-"" python的集成开发插件, 但与多个别的插件没法协作, 所以注释掉
-"Plugin 'klen/python-mode'
-"" 提供在同一行同字符间的高亮快速移动
-"Plugin 'Lokaltog/vim-easymotion'
+Plug 'honza/vim-snippets'
 "" 快速html/css输入引擎, 一个缩写引擎
-Plugin 'mattn/emmet-vim'
-Plugin 'mattn/webapi-vim'
-"" 快速grep文本内容的插件, 要安装ack
-Plugin 'mileszs/ack.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'Raimondi/delimitMate'
-Plugin 'kshenoy/vim-signature'
+Plug 'mattn/emmet-vim'
+Plug 'mattn/webapi-vim'
 "" vim中文文档
-Plugin 'asins/vimcdoc'
-"" 定义各种文本对象
-Plugin 'kana/vim-textobj-user'
-""函数对象
-" Plugin 'kana/vim-textobj-function'
-""全局文本对象ae/ie
-Plugin 'kana/vim-textobj-entire'
-" Plugin 'bps/vim-textobj-python'
-" Plugin 'sgur/vim-textobj-parameter'
-" Plugin 'kana/vim-textobj-line'
-
-
-filetype plugin indent on
-
+Plug 'asins/vimcdoc'
+"" fzf文件模糊搜索, dir表示插件安装在外部目录, do表示执行命令
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+"" 文本对齐插件
+Plug 'junegunn/vim-easy-align'
+"" 提供多语言的增强插件, 有些只是语法高亮
+Plug 'sheerun/vim-polyglot'
+"" rust语言的增强插件
+Plug 'rust-lang/rust.vim'
+"" md文件的增强插件
+Plug 'plasticboy/vim-markdown'
+"" .dot文件的增强插件
+Plug 'wannesm/wmgraphviz.vim'
+call plug#end()
 
 """""""""""""""""""""""""""插件配置"""""""""""""""""""""""""""""""""""""""""""
 
@@ -300,7 +237,8 @@ let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_autoclose_preview_window_after_insertion=1
 "" 关闭对.ycm_extra_conf.py文件的安全载入对话
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_server_keep_logfiles = 1
+" let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_python_interpreter = '/usr/bin/python'
 
 
 """" syntastic """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -318,10 +256,8 @@ let g:ycm_server_keep_logfiles = 1
 " let g:syntastic_cpp_cpplint_exec = 'cpplint'
 
 
-"""" eclim """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 提供java代码补全, 但依赖eclipse, 会极大影响vim启动速度, 补全速度也很糟糕
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:EclimCompletionMethod='omnifunc'
+"""" fzf """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <c-p> :FZF<cr>
 
 
 """" ultisnips """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -348,31 +284,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-"""" unite """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 配置为默认插入, 窗口10行的高度, 窗口在底部
-" call unite#custom#profile('default', 'context', {
-"       \ 'start_insert': 1,
-"       \ 'winheight': 10,
-"       \ 'direction': 'botright',
-"       \})
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" nnoremap <silent> <space>o :<c-u>Unite file_rec/async:!<cr>
-" nnoremap <silent> <space>b :Unite buffer<cr>
-" if executable('ag')
-"   " Use ag (the silver searcher) https://github.com/ggreer/the_silver_searcher
-"   let g:unite_source_grep_command = 'ag'
-"   let g:unite_source_grep_default_opts = 
-"         \ '-i --vimgrep --hidden ' . 
-"         \ '--ignore ''.hg'' ' . 
-"         \ '--ignore ''.svn'' ' .
-"         \ '--ignore ''.git'' ' .
-"         \ '--ignore ''.bzr'''
-"   let g:unite_source_grep_recursive_opt = ''
-" endif
-" let g:unite_source_rec_async_command =
-"       \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
-" nnoremap <silent> <space>/ :<C-u>Unite -no-start-insert grep:.<cr>
-
 "====   markdown
 " next header         : ]],
 " prev header         : [[,
@@ -385,25 +296,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 
-"==== tabular
-nnoremap <silent> <leader>a> :Tabularize /#=><cr>
 
 "==== vim-expand-region
 "map K <Plug>(expand_region_expand)
 "map J <Plug>(expand_region_shrink)
 
-"==== vimproc
-" ':VimProcInstall' first
-nnoremap <leader>vb :VimProcBang 
-nnoremap <leader>vr :VimProcRead 
-
-"==== vimshell
-let g:vimshell_popup_command="70vsplit"
-let g:vimshell_interactive_interpreter_commands={"coffee":"coffee", 
-      \ "python":"ipython3",
-      \ "scheme":"scheme"} 
-nnoremap <silent> <leader>vs :VimShellPop<cr>
-nnoremap <silent> <leader>vi :VimShellInteractive<cr>
 
 "==== wmgraphviz
 " <localleader>ll :GraphvizCompile
@@ -427,7 +324,7 @@ nnoremap <silent> <leader>vi :VimShellInteractive<cr>
 let g:polyglot_disabled = ['python','markdown','rust']
 
 "==== ack.vim
-let g:ackprg = 'ag'
+" let g:ackprg = 'ag'
 
 "==== ctrlp.vim
 "c-p,直接输入字串,模糊搜索或c-r进行正则搜索,c-j/k进行选择,回车编辑或c-t/v在新tab页和垂直分割窗口编辑
@@ -438,19 +335,14 @@ let g:ackprg = 'ag'
 "字串附加':'表示结束,跟cmd表示在指定文件上执行命令,跟数字表示跳转到指定行数,跟diffthis比较标记的多个文件
 "c-y若文件不存在时则创建
 "打开新建文件时, 在当前窗口打开
-let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_user_caching = 0
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = {
-      \ 'dir': '\v[\/]\.(git|hg|svn)$',
-      \ 'file': '\v\.(exe|so|dll)$',
-      \ 'link': 'some_bad_symbolic_links',
-      \ }
-
-
-"==== ros's config
-autocmd BufNewFile,BufReadPre *.launch,*.xacro,*.urdf,*.sdf set filetype=xml
-
+" let g:ctrlp_open_new_file = 'r'
+" let g:ctrlp_user_caching = 0
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+" let g:ctrlp_custom_ignore = {
+"       \ 'dir': '\v[\/]\.(git|hg|svn)$',
+"       \ 'file': '\v\.(exe|so|dll)$',
+"       \ 'link': 'some_bad_symbolic_links',
+"       \ }
 
 "==== python-mode
 "'<leader>r'运行python代码
@@ -464,8 +356,6 @@ autocmd BufNewFile,BufReadPre *.launch,*.xacro,*.urdf,*.sdf set filetype=xml
 " au FileType mail let b:delimitMate_autoclose = 0
 " 指定匹配的分隔符
 " let delimitMate_matchpairs = "(:),[:],{:},<:>"
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-let g:delimitMate_jump_expansion = 1
-
-"#### scala
+" let g:delimitMate_expand_cr = 1
+" let g:delimitMate_expand_space = 1
+" let g:delimitMate_jump_expansion = 1
