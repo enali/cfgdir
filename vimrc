@@ -40,6 +40,10 @@ set history=200
 " set textwidth=80
 "" 设置前导字符, 默认\
 let mapleader=","
+"" 开启文件类型检测
+filetype plugin on
+"" 开启粘贴模式
+set pastetoggle=<F2>
 "" 将默认的前导符映射到反向重复查找','
 nnoremap \ ,
 
@@ -50,6 +54,7 @@ runtime ftplugin/man.vim
 runtime macros/matchit.vim
 
 
+au BufNewFile,BufRead *.html set filetype=htmldjango
 """" 命令行映射 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" 映射可过滤的回溯命令
 cnoremap <c-p> <up>
@@ -92,6 +97,8 @@ set nofoldenable
 call plug#begin('~/.vim/plugged')
 ""用ascii码画画
 Plug 'DrawIt'
+""修改过的django语法
+Plug 'enali/vim-django'
 "" 提取代码的tab, 往往是类, 方法等
 Plug 'majutsushi/tagbar'
 "" 以边栏的形式提供文件树
@@ -145,6 +152,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'plasticboy/vim-markdown'
 "" .dot文件的增强插件
 Plug 'wannesm/wmgraphviz.vim'
+"" django文件跳转
+Plug 'jmcomets/vim-pony'
 call plug#end()
 
 """""""""""""""""""""""""""插件配置"""""""""""""""""""""""""""""""""""""""""""
@@ -227,8 +236,9 @@ nnoremap <leader>jd :YcmCompleter GoTo<cr>
 let g:ycm_always_populate_location_list=1
 "" 注释中也进行补全
 let g:ycm_complete_in_comments=1
+let g:ycm_complete_in_strings=1
 "" 在注释中的标识符也会被收集到补全列表中
-let g:ycm_collect_identifiers_from_comments_and_strings=1
+" let g:ycm_collect_identifiers_from_comments_and_strings=1
 "" 从tag文件中收集到补全列表中
 let g:ycm_collect_identifiers_from_tags_files=1
 "" 补全后关闭预览窗口
@@ -239,6 +249,8 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 let g:ycm_confirm_extra_conf = 0
 " let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_python_interpreter = '/usr/bin/python'
+"" python补全, 即索引库
+let g:ycm_python_binary_path = '/home/enali/miniconda3/bin/python3'
 
 
 """" syntastic """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -270,7 +282,7 @@ let g:UltiSnipsEditSplit="vertical"
 "" 自定义snip的目录
 let g:UltiSnipsSnippetsDir="~/.vim/enali/UltiSnips"
 "" snip扩展快捷键
-let g:UltiSnipsExpandTrigger="<leader><tab>"
+let g:UltiSnipsExpandTrigger="<c-j>"
 "" 下一个扩展, 同标识符可能多个snip
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 "" 上一个
@@ -321,7 +333,7 @@ let g:vim_markdown_frontmatter = 1
 
 "==== polyglot
 " python-mode is more better
-let g:polyglot_disabled = ['python','markdown','rust']
+let g:polyglot_disabled = ['markdown','rust']
 
 "==== ack.vim
 " let g:ackprg = 'ag'
@@ -359,3 +371,11 @@ let g:polyglot_disabled = ['python','markdown','rust']
 " let g:delimitMate_expand_cr = 1
 " let g:delimitMate_expand_space = 1
 " let g:delimitMate_jump_expansion = 1
+
+"==== pony for django
+nnoremap <space>1 :Durls 
+nnoremap <space>2 :Dviews 
+nnoremap <space>3 :Dmodels
+nnoremap <space>4 :Dtests 
+nnoremap <space>5 :Dsettings 
+nnoremap <space>6 :Dadmin 
