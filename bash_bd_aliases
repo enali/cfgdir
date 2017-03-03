@@ -1,0 +1,25 @@
+# vim:set ft=sh:
+
+# 列出HDFS文件信息
+alias hls='hdfs dfs -ls'
+# 删除HDFS目录
+alias hrm='hdfs dfs -rm'
+# 在HDFS新建目录
+alias hmd='hdfs dfs -mkdir'
+# 推送本地文件到HDFS
+alias hput='hdfs dfs -put'
+# 获取HDFS文件到本地
+alias hget='hdfs dfs -get'
+# 浏览HDFS文件
+alias hcat='hdfs dfs -cat'
+# 合并HDFS文件到本地
+alias hmg='hdfs dfs -getmerge'
+# 格式化HDFS文件系统
+alias hfmt='hdfs namenode -format'
+# 查看HDFS基本统计信息
+alias hrep='hdfs dfsadmin -report'
+# 启动/关闭进程
+alias start-hadoop='$HADOOP_HOME/sbin/start-all.sh'
+alias stop-hadoop='$HADOOP_HOME/sbin/stop-all.sh'
+alias start-spark='$SPARK_HOME/sbin/start-all.sh'
+alias stop-spark='$SPARK_HOME/sbin/stop-all.sh'
