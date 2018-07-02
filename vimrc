@@ -1,104 +1,124 @@
-"""" 通用设定 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 通用设定 """""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" 设定为与vi非兼容
 set nocompatible
-"" 高亮搜索, 允许增量式搜索
+
+"""""""" 关于编辑区设定
+"" 高亮搜索, 增量搜索
 set incsearch hlsearch
-"" 搜索时全小写则忽略大小写,有大写字母则大小写敏感
+"" 搜索时智能大小写敏感
 set ignorecase smartcase
-"" 命令行补全
-set wildmenu
-"" 自动插入缩进
-set smartindent
+"" 显示行号和相对行号
+set number relativenumber
+"" 适当折行
+set linebreak
+"" 允许Ctrl-A和Ctrl-X加减字母
+set nrformats+=alpha
+"" 高亮第80列
+set colorcolumn=80
+"" 高亮当前行/列
+set cursorline cursorcolumn
+"" 设置backspace功能
+set backspace=indent,eol,start
+"" 设置行宽度
+" set textwidth=80
+"" 指定主题和背景色
+colorscheme seoul256
+set background=dark
+"" 开启文件类型检测
+filetype plugin on
+"" 开启语法高亮
+syntax enable
+
+"""""""" 关于缓冲区设定
 "" 文件发生更改时自动读入
 set autoread
 "" 允许未保存缓冲区时编辑新文件
 set hidden
 "" 禁止备份文件
 set nobackup
+
+"""""""" 关于命令行和状态栏设定
 "" 指定命令行高度
 set cmdheight=2
-"" 指定显示光标的行列号
-set ruler
-"" 指定行号和相对行号
-set nu rnu
-"" 指定显示未完成命令
+"" 打开命令行补全
+set wildmenu
+"" 在命令行显示未完成命令
 set showcmd
-"" 指定状态栏显示方式
-set laststatus=2
-"" 适当折行
-set linebreak
-"" 显示折叠栏
-set foldcolumn=2
-"" 允许Ctrl-A和Ctrl-X加减字母
-set nrformats+=alpha
-"" 让第80列高亮
-set colorcolumn=80
-"" 设置backspace功能
-set backspace=indent,eol,start
 "" 记录更多的Ex历史命令
 set history=200
-"" 设置行宽度, 主要考虑在多数设备80列是最佳宽度
-" set textwidth=80
+"" 在状态栏显示光标的行列号
+set ruler
+"" 指定状态栏显示方式
+set laststatus=2
+
+"""""""" 关于tab键
+"" 自动插入缩进
+set smartindent
+"" 将<tab>键扩展为空格
+set expandtab
+"" 指定'>'缩进量
+set shiftwidth=2
+"" 指定tab键宽度
+set softtabstop=2
+
+"""""""" 关于代码折叠
+"" 显示折叠栏
+set foldcolumn=2
+"" 是否开启代码折叠
+set foldenable
+"" 指定代码折叠的方式
+set foldmethod=syntax
+"" 折叠只有在占据xx行或更多时才关闭
+set foldminlines=15
+"" 设置最大折叠层数
+set foldnestmax=4
+
 "" 设置前导字符, 默认\
 let mapleader=","
-"" 开启文件类型检测
-filetype plugin on
-"" 开启粘贴模式
-set pastetoggle=<F2>
-"" 将默认的前导符映射到反向重复查找','
+"" 将\映射到反向重复查找','
 nnoremap \ ,
 
-"""" 增强插件激活 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" 允许在命令行查询Man手册
 runtime ftplugin/man.vim
 "" 扩展%的功能, 不只分隔符, 还匹配关键字
 runtime macros/matchit.vim
 
 
-au BufNewFile,BufRead *.html set filetype=htmldjango
-"""" 命令行映射 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" 映射可过滤的回溯命令
-cnoremap <c-p> <up>
-cnoremap <c-n> <down>
-"" 用%%在命令行扩展当前文件目录
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 快捷键映射 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" TODO: 开启粘贴模式
+set pastetoggle=<F2>
+"" 在命令行进行命令回溯
+cnoremap <c-k> <up>
+cnoremap <c-j> <down>
+"" 在命令行将%%扩展为当前文件目录
 cnoremap <expr> %% getcmdtype()==':' ? expand('%:h').'/':'%%'
-
-
-"""" 普通模式映射 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" 编辑.vimrc的映射
+"" 编辑.vimrc
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
-"" 重新载入.vimrc的映射
+"" 重载.vimrc
 nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
 
-"""" 自定义命令 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 非特权下保存特权文件
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 自定义命令 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" 非特权下保存特权文件
 command! Ws :w ! sudo tee % >/dev/null
 
-"""" colorscheme """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme seoul256
-set background=dark
-set cursorline cursorcolumn
 
-"""" 设置垂直制表符 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable 
-syntax on
-" 将<tab>键扩展为空格
-set expandtab
-" 指定'>'缩进量
-set shiftwidth=2
-" 指定tab键宽度
-set softtabstop=2
-" 是否开启代码折叠
-set nofoldenable
-" set foldenable
-" 指定代码折叠的方式
-" set foldmethod=syntax
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" vim-plug """""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""" vim-plug """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 ""用ascii码画画
-Plug 'DrawIt'
-""修改过的django语法
-Plug 'enali/vim-django'
+Plug 'vim-scripts/DrawIt'
 "" 提取代码的tab, 往往是类, 方法等
 Plug 'majutsushi/tagbar'
 "" 以边栏的形式提供文件树
@@ -113,8 +133,12 @@ Plug 'bling/vim-airline'
 "" 显示缩进对齐, 视觉辅助
 Plug 'Yggdroot/indentLine'
 "" 全功能补全插件, 特别是对c/cpp提供语义补全
-Plug 'Valloric/YouCompleteMe'
-Plug 'Valloric/ListToggle'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/ListToggle'
+"" 从特定构建系统, 为YCM生成.ycm_extra_conf
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+"" 提供语法或风格检查
+"Plug 'w0rp/ale'
 "" 提供rails的增强
 Plug 'tpope/vim-rails'
 "" 提供haml, 另一种html模板
@@ -135,7 +159,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'SirVer/ultisnips'
 "" 用于ultisnips的多语言代码片断
 Plug 'honza/vim-snippets'
-"" 快速html/css输入引擎, 一个缩写引擎
+"" 快速html/css输入引擎, 缩写引擎
 Plug 'mattn/emmet-vim'
 Plug 'mattn/webapi-vim'
 "" vim中文文档
@@ -145,26 +169,40 @@ Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 "" 文本对齐插件
 Plug 'junegunn/vim-easy-align'
 "" 提供多语言的增强插件, 有些只是语法高亮
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 "" rust语言的增强插件
 Plug 'rust-lang/rust.vim'
 "" md文件的增强插件
 Plug 'plasticboy/vim-markdown'
 "" .dot文件的增强插件
 Plug 'wannesm/wmgraphviz.vim'
-"" django文件跳转
-Plug 'jmcomets/vim-pony'
+"" go语言插件
+Plug 'fatih/vim-go'
 call plug#end()
 
-"""""""""""""""""""""""""""插件配置"""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 插件配置 """""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""" DrawIt """""""""""""""""""""""""""""""""""""
+" 描述: 画线
+" 说明: 
+" * <leader>di:  开始画
+" * <leader>ds:  停止画
+" * left/right/up/down/>/</pgdn/pgup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-"""" tagbar """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" x: 将窗口放大
-" q: 退出窗口
-" <c-n>, <c-p>: 下/上一个顶级tag
-" <space>: 显示tag的原型声明
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""" tagbar """""""""""""""""""""""""""""""""""""
+" 描述: 
+" 说明:
+" * x: 将窗口放大
+" * q: 退出窗口
+" * <c-n>, <c-p>: 下/上一个顶级tag
+" * <space>: 显示tag的原型声明
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nnoremap <silent> <space>t :TagbarToggle<cr>
 "" 窗口开在左侧
 let tagbar_left=1
@@ -176,12 +214,14 @@ let g:tagbar_compact=1
 let g:tagbar_width=30
 
 
-"""" nerdtree """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 目录树插件
-" m: 打开文件操作菜单
-" I: 显示隐藏文件
-" ?: 显示帮助
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""" nerdtree """""""""""""""""""""""""""""""""""
+" 描述: 目录树插件
+" 说明:
+" * m: 打开文件操作菜单
+" * I: 显示隐藏文件
+" * ?: 显示帮助
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nnoremap <silent> <space>f :NERDTreeToggle<cr>
 "" 窗口打开在右侧
 let NERDTreeWinPos="right"
@@ -205,10 +245,12 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 
-"""" undotree """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 文本改动窗口
-" >, <: 选择下/上一个改变
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""" undotree """""""""""""""""""""""""""""""""""
+" 描述: 文本改动窗口
+" 说明:
+" * >, <: 选择下/上一个改变
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nnoremap <silent> <space>m :UndotreeToggle<cr>
 "" 打开改动窗口自动定位光标到此窗口
 let g:undotree_SetFocusWhenToggle=1
@@ -217,26 +259,67 @@ if has("persistent_undo")
   set undofile
 endif
 
-"""" polyglot """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"":: vim-ruby
-" 代码间移动: ]m, ]M, [m, [M, ]], ][, [[, []
-" 代码文本对象: am/im方法, aM/iM模块
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""" polyglot """""""""""""""""""""""""""""""""""
+" 描述: 多语言增强插件
+" 说明:
+" * ]m, ]M, [m, [M, ]], ][, [[, []: 代码间移动
+" * am/im方法, aM/iM模块: 代码文本对象
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 禁用指定语言的插件
+let g:polyglot_disabled = ['markdown','rust']
 let g:ruby_indent_access_modifier_style='indent'
 
 
-"""" YouCompleteMe """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 补全引擎, 包括tag补全, 路径补全, 标识符补全, 语法补全
-" Ctrl-space: 触发补全
-" <leader>d: 获取诊断条目的详细信息
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""" YouCompleteMe """"""""""""""""""""""""""""""
+" 描述: 补全引擎, 包括tag/标识符补全, 路径补全, 语义补全,
+" snippet补全(依赖ultisnips)
+" 说明:
+" * Ctrl-space: 触发补全
+" * <leader>d: 获取诊断条目的详细信息
+" 命令:
+" * :YcmDiags, 查看是否有错误和警告
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "" 映射声明和实现的跳转
 nnoremap <leader>jd :YcmCompleter GoTo<cr>
+"" 用于标识符补全引擎, 为触发补全用户至少要输入几个字符, 默认2
+let g:ycm_min_num_of_chars_for_completion = 2
+"" 显示语义补全建议的最大数目, 默认50
+let g:ycm_max_num_candidates = 10
+"" 显示标识符补全建议的最大数目, 默认10
+"let g:ycm_max_identifier_candidates = 10
+"" 是否关闭自动触发补全, 0表示关闭
+"let g:ycm_auto_trigger = 1
+"" 启动YCM的文件类型白名单和黑名单
+"let g:ycm_filetype_whitelist/blacklist
+"" 关闭语义补全引擎的文件类型
+"let g:ycm_filetype_specific_completion_to_disable
+"" 默认错误/警告符号
+"let g:ycm_error_symbol = '>>'
+"let g:ycm_warning_symbol = '>>'
 "" 当获取语法诊断数据时自动打开位置列表,与syntastic配合
 let g:ycm_always_populate_location_list=1
-"" 注释中也进行补全
+"" 注释中/字串中也进行补全
 let g:ycm_complete_in_comments=1
 let g:ycm_complete_in_strings=1
+"" 是否保存YCM的日志文件(在其关闭后), 设置日志级别
+" let g:ycm_keey_logfiles = 0
+" let g:ycm_log_level = 'info'
+"" 选择补全列表
+let g:ycm_key_list_select_completion = ['<c-j>']
+let g:ycm_key_list_previous_completion = ['<c-k>']
+"" 强制触发补全
+let g:ycm_key_invoke_completion = '<c-j>'
+"" 显示详细的诊断信息
+"let g:ycm_key_detailed_diagnostics = '<leader>d'
+"" 全局的ycm_extra_conf文件
+"let g:ycm_global_ycm_extra_conf = ''
+"" 配置不同语言的语义触发器
+"let g:ycm_semantic_triggers = { ... }
+"" 是否使用ultisnips补全
+"let g:ycm_use_ultisnips_completer = 1
 "" 在注释中的标识符也会被收集到补全列表中
 " let g:ycm_collect_identifiers_from_comments_and_strings=1
 "" 从tag文件中收集到补全列表中
@@ -248,33 +331,15 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 "" 关闭对.ycm_extra_conf.py文件的安全载入对话
 let g:ycm_confirm_extra_conf = 0
 " let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_python_interpreter = '/usr/bin/python'
-"" python补全, 即索引库
-let g:ycm_python_binary_path = '/home/enali/miniconda3/bin/python3'
+let g:ycm_server_python_interpreter = 'python3'
+"" 用于运行jedi, python补全, 用于指定python的版本
+let g:ycm_python_binary_path = 'python3'
 
 
-"""" syntastic """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 提供多语言的语法检查诊断, 会影响运行速度, 特别是保存时自动进行检查, 导致vim
-" 直接会卡位好几秒, 特别是对Java代码, 以及代码量比较庞大时
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_check_on_open=1
-" let g:syntastic_check_on_wq=0
-" " pip install cpplint
-" let g:syntastic_cpp_cpplint_exec = 'cpplint'
+"""""""" ultisnips """"""""""""""""""""""""""""""""""
+" 描述: 代码snippet补全引擎, 但依赖vim-snippets提供多语言的代码片断
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-"""" fzf """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <c-p> :FZF<cr>
-
-
-"""" ultisnips """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 代码snippet补全引擎, 但依赖vim-snippets提供多语言的代码片断
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" 编辑自定义snip的映射
 nnoremap <leader>ue :UltiSnipsEdit<cr>
 "" 编辑时窗口以垂直打开
@@ -282,21 +347,37 @@ let g:UltiSnipsEditSplit="vertical"
 "" 自定义snip的目录
 let g:UltiSnipsSnippetsDir="~/.vim/enali/UltiSnips"
 "" snip扩展快捷键
-let g:UltiSnipsExpandTrigger="<c-j>"
+"let g:UltiSnipsExpandTrigger="<tab>"
 "" 下一个扩展, 同标识符可能多个snip
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
 "" 上一个
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 
-"""" vim-surround """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 处理分隔符的插件, 如删除,改变,添加分隔符, 指"", '', {}, []等
-" ds: 删除环绕符
-" cs: 改变环绕符
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""" YCM-Generator """"""""""""""""""""""""""""""
+" 描述: 从支持的构建系统中, 为项目生成.ycm_extra_conf文件
+"       用于YCM对于C家族语言的补全
+" 说明: 
+" * :YcmGenerateConfig, 为当前目录的项目生成文件
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-"====   markdown
+"""""""" fzf """"""""""""""""""""""""""""""""""""""""
+" TODO:
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <c-p> :FZF<cr>
+
+
+"""""""" vim-surround """""""""""""""""""""""""""""""
+" 描述: 处理分隔符的插件, 如删除,改变,添加分隔符, 指"", '', {}, []等
+" 说明:
+" * ds: 删除环绕符
+" * cs: 改变环绕符
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""" vim-markdown """""""""""""""""""""""""""""""
 " next header         : ]],
 " prev header         : [[,
 " next sibling header : ][,
@@ -305,63 +386,38 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " parent header       : ]u
 " command: HeaderIncrese/HeaderDecrese
 " Toc/Toch/Tocv/Toct  (header overview)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 
 
-"==== vim-expand-region
-"map K <Plug>(expand_region_expand)
-"map J <Plug>(expand_region_shrink)
-
-
-"==== wmgraphviz
+"""""""" wmgraphviz """""""""""""""""""""""""""""""""
 " <localleader>ll :GraphvizCompile
 " <localleader>lv :GraphvizShow
 " <localleader>li :GraphvizInteractive
 " <localleader>lt :GraphvizCompileLaTeX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"==== emmet-vim
-" expand abbreviation or wrap with abbreviation: '<C-y>,'
-" select tag: '<C-y>d', '<C-y>D'
-" next edit point: '<C-y>n'
-" prev edit point: '<C-y>N'
-" remove tag: '<C-y>k'
-" split/join tag: '<C-y>j'
-" toggle comment: '<C-y>/'
-" make anchor from url: '<C-y>a'
-" make quoted text from url: '<C-y>A'
 
-"==== polyglot
-" python-mode is more better
-let g:polyglot_disabled = ['markdown','rust']
+"""""""" emmet-vim """"""""""""""""""""""""""""""""""
+" 说明:
+" * expand abbreviation or wrap with abbreviation: '<C-y>,'
+" * select tag: '<C-y>d', '<C-y>D'
+" * next edit point: '<C-y>n'
+" * prev edit point: '<C-y>N'
+" * remove tag: '<C-y>k'
+" * split/join tag: '<C-y>j'
+" * toggle comment: '<C-y>/'
+" * make anchor from url: '<C-y>a'
+" * make quoted text from url: '<C-y>A'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"==== ack.vim
-" let g:ackprg = 'ag'
 
-"==== ctrlp.vim
-"c-p,直接输入字串,模糊搜索或c-r进行正则搜索,c-j/k进行选择,回车编辑或c-t/v在新tab页和垂直分割窗口编辑
-"c-f/b模式选择,文件/缓冲区/最近使用文件
-"c-d表示只对文件名进行匹配,不匹配整个路径名
-"c-n/p选择输入字串的历史回放
-"c-z标记/取消标记,c-o打开,用于一次打开多个标记文件
-"字串附加':'表示结束,跟cmd表示在指定文件上执行命令,跟数字表示跳转到指定行数,跟diffthis比较标记的多个文件
-"c-y若文件不存在时则创建
-"打开新建文件时, 在当前窗口打开
-" let g:ctrlp_open_new_file = 'r'
-" let g:ctrlp_user_caching = 0
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-" let g:ctrlp_custom_ignore = {
-"       \ 'dir': '\v[\/]\.(git|hg|svn)$',
-"       \ 'file': '\v\.(exe|so|dll)$',
-"       \ 'link': 'some_bad_symbolic_links',
-"       \ }
+"""""""" delimitMate """"""""""""""""""""""""""""""""
+" 描述: 自动补全", (, {, [等
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"==== python-mode
-"'<leader>r'运行python代码
-"'<leader>b'添加/移除断点
-
-"==== delimitMate
-" 所有的设置都有全局和局部版本,局部可针对特定文件类型
 " 针对特定文件类型不会载入delimitMate脚本
 " au FileType mail let b:loaded_delimitMate = 1
 " 针对特定文件类型不会自动关闭分隔符
@@ -371,11 +427,3 @@ let g:polyglot_disabled = ['markdown','rust']
 " let g:delimitMate_expand_cr = 1
 " let g:delimitMate_expand_space = 1
 " let g:delimitMate_jump_expansion = 1
-
-"==== pony for django
-nnoremap <space>1 :Durls 
-nnoremap <space>2 :Dviews 
-nnoremap <space>3 :Dmodels
-nnoremap <space>4 :Dtests 
-nnoremap <space>5 :Dsettings 
-nnoremap <space>6 :Dadmin 
