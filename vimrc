@@ -4,6 +4,7 @@
 
 "" 设定为与vi非兼容
 set nocompatible
+set termguicolors
 
 """""""" 关于编辑区设定
 "" 高亮搜索, 增量搜索
@@ -18,15 +19,10 @@ set linebreak
 set nrformats+=alpha
 "" 高亮第80列
 set colorcolumn=80
-"" 高亮当前行/列
-set cursorline cursorcolumn
 "" 设置backspace功能
 set backspace=indent,eol,start
 "" 设置行宽度
 " set textwidth=80
-"" 指定主题和背景色
-colorscheme seoul256
-set background=dark
 "" 开启文件类型检测
 filetype plugin on
 "" 开启语法高亮
@@ -47,6 +43,8 @@ set cmdheight=2
 set wildmenu
 "" 在命令行显示未完成命令
 set showcmd
+"" 因为lightline在状态栏显示模式
+set noshowmode
 "" 记录更多的Ex历史命令
 set history=200
 "" 在状态栏显示光标的行列号
@@ -128,17 +126,22 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mbbill/undotree'
 "" 提供多主题
 Plug 'flazz/vim-colorschemes'
+"" true color scheme
+Plug 'KeitaNakamura/neodark.vim'
+" Plug 'icymind/NeoSolarized'
 "" 提供状态栏增强显示
-Plug 'bling/vim-airline'
+Plug 'itchyny/lightline.vim'
 "" 显示缩进对齐, 视觉辅助
 Plug 'Yggdroot/indentLine'
 "" 全功能补全插件, 特别是对c/cpp提供语义补全
-"Plug 'Valloric/YouCompleteMe'
-"Plug 'Valloric/ListToggle'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/ListToggle'
 "" 从特定构建系统, 为YCM生成.ycm_extra_conf
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+"" 开闭/显示/导航 标记
+Plug 'kshenoy/vim-signature'
 "" 提供语法或风格检查
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 "" 提供rails的增强
 Plug 'tpope/vim-rails'
 "" 提供haml, 另一种html模板
@@ -178,12 +181,36 @@ Plug 'plasticboy/vim-markdown'
 Plug 'wannesm/wmgraphviz.vim'
 "" go语言插件
 Plug 'fatih/vim-go'
+"" 自动调整左右窗口为黄金分割比
+" Plug 'roman/golden-ratio'
+"" 播放打字音效
+Plug 'skywind3000/vim-keysound'
+"" 无打扰打字模式
+Plug 'junegunn/goyo.vim'
 call plug#end()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 """" 插件配置 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""" neodark """"""""""""""""""""""""""""""""""""
+let g:neodark#terminal_transparent = 1 " default: 0
+let g:neodark#background = '#202020'
+" let g:neodark#use_256color = 1
+
+"" 指定主题和背景色
+" colorscheme seoul256 "256 color
+colorscheme neodark "在neodark配置后面
+"" 高亮当前行/列
+set cursorline cursorcolumn
+set background=dark
+
+
+"""""""" lightline """"""""""""""""""""""""""""""""""""
+let g:lightline = {}
+let g:lightline.colorscheme = 'neodark'
+
 
 """""""" DrawIt """""""""""""""""""""""""""""""""""""
 " 描述: 画线
@@ -331,7 +358,7 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 "" 关闭对.ycm_extra_conf.py文件的安全载入对话
 let g:ycm_confirm_extra_conf = 0
 " let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_python_interpreter = 'python3'
+let g:ycm_server_python_interpreter = 'python'
 "" 用于运行jedi, python补全, 用于指定python的版本
 let g:ycm_python_binary_path = 'python3'
 
@@ -427,3 +454,23 @@ let g:vim_markdown_frontmatter = 1
 " let g:delimitMate_expand_cr = 1
 " let g:delimitMate_expand_space = 1
 " let g:delimitMate_jump_expansion = 1
+
+"""""""" keysound """""""""""""""""""""""""""""""""""
+" 通过:KeysoundEnable,KeysoundDisable启动和关闭打字音效
+""""""""""""""""
+" 指定使用的python版本
+let g:keysound_py_version = 3
+" 默认开启音效
+" let g:keysound_enable = 1
+" 选择音效主题
+" let g:keysound_theme = 'default'
+"
+
+"""""""" goyo """""""""""""""""""""""""""""""""""""""
+" :Goyo 打开
+" :Goyo [dimension], 可设定宽高
+" :Goyo! 关闭
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:goyo_width = 80
+" let g:goyo_height = 85%
+" let g:goyo_linenr = 0
