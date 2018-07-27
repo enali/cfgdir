@@ -66,7 +66,8 @@ set softtabstop=2
 "" 显示折叠栏
 set foldcolumn=2
 "" 是否开启代码折叠
-set foldenable
+"set foldenable
+set nofoldenable
 "" 指定代码折叠的方式
 set foldmethod=syntax
 "" 折叠只有在占据xx行或更多时才关闭
